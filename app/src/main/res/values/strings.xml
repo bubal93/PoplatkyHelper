@@ -18,6 +18,10 @@
     <string name="pref_dialog_naturalGas">Set the price for 1 cubic meter of natural gas</string>
 
     <string name="action_settings">Settings</string>
+    
+    <string name="overview_tab">Overview</string>
+    <string name="statistics_tab">Statistics</string>
+
 
 
 
