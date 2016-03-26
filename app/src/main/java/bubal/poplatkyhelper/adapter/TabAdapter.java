@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
+import bubal.poplatkyhelper.fragment.HistoryFragment;
 import bubal.poplatkyhelper.fragment.OverviewFragment;
 import bubal.poplatkyhelper.fragment.StatisticsFragment;
 
@@ -21,8 +22,10 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new OverviewFragment();
+                return new HistoryFragment();
             case 1:
+                return new OverviewFragment();
+            case 2:
                 return new StatisticsFragment();
             default:
                 return null;

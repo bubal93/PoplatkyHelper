@@ -1,20 +1,26 @@
 package bubal.poplatkyhelper;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import bubal.poplatkyhelper.adapter.TabAdapter;
+import bubal.poplatkyhelper.dialog.AddingMeasureDialogFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements AddingMeasureDialogFragment.AddingMeasureListener {
 
     FragmentManager fragmentManager;
 
@@ -71,14 +77,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.history_tab));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.overview_tab));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.statistics_tab));
 
+
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 2);
+        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 3);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        viewPager.setCurrentItem(1);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -96,5 +106,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment addingMeasureDialogFragment = new AddingMeasureDialogFragment();
+                addingMeasureDialogFragment.show(fragmentManager, "AddingMeasureDialogFragment");
+            }
+        });
+    }
+
+    @Override
+    public void onMeasureAdded() {
+        Toast.makeText(this, "Measure added", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMeasureAddingCancel() {
+        Toast.makeText(this, "Measure adding canceled", Toast.LENGTH_SHORT).show();
     }
 }
