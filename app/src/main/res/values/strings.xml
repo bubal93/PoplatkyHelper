@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">PoplatkyHelper</string>
+
+    <string name="pref_key_tariffElectricity">Electricity tariff</string>
+    <string name="pref_key_tariffWater">Water tariff</string>
+    <string name="pref_key_tariffNaturalGas">Natural gas tariff</string>
+
+    <string name="pref_title_electricity">Electricity</string>
+    <string name="pref_title_water">Water</string>
+    <string name="pref_title_naturalGas">Natural gas</string>
+
+    <string name="pref_summ_electricity">Set electricity tariff</string>
+    <string name="pref_summ_water">Set water tariff</string>
+    <string name="pref_summ_naturalGas">Set natural gas tariff</string>
+
+    <string name="pref_dialog_electricity">Set the price for 1 MWh</string>
+    <string name="pref_dialog_water">Set the price for 1 cubic meter of water</string>
+    <string name="pref_dialog_naturalGas">Set the price for 1 cubic meter of natural gas</string>
+
+    <string name="action_settings">Settings</string>
+
+
+
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue=""
+        android:dialogTitle="@string/pref_dialog_electricity"
+        android:inputType="numberDecimal"
+        android:key="@string/pref_key_tariffElectricity"
+        android:summary="@string/pref_summ_electricity"
+        android:title="@string/pref_title_electricity" />
+
+    <EditTextPreference
+        android:defaultValue=""
+        android:dialogTitle="@string/pref_dialog_water"
+        android:inputType="numberDecimal"
+        android:key="@string/pref_key_tariffWater"
+        android:summary="@string/pref_summ_water"
+        android:title="@string/pref_title_water" />
+    />
+
+    <EditTextPreference
+        android:defaultValue=""
+        android:dialogTitle="@string/pref_dialog_naturalGas"
+        android:inputType="numberDecimal"
+        android:key="@string/pref_key_tariffNaturalGas"
+        android:summary="@string/pref_summ_naturalGas"
+        android:title="@string/pref_title_naturalGas" />
+    />
+
+</PreferenceScreen>
