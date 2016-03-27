@@ -86,17 +86,15 @@ public class MainActivity extends AppCompatActivity
         if (tabLayout != null) {
 
             tabLayout.addTab(tabLayout.newTab().setText(R.string.history_tab));
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.overview_tab));
             tabLayout.addTab(tabLayout.newTab().setText(R.string.statistics_tab));
 
             final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            tabAdapter = new TabAdapter(fragmentManager, 3);
+            tabAdapter = new TabAdapter(fragmentManager, 2);
 
             if (viewPager != null) {
 
                 viewPager.setAdapter(tabAdapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-                viewPager.setCurrentItem(1);
 
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
