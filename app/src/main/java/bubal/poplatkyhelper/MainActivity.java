@@ -77,44 +77,48 @@ public class MainActivity extends AppCompatActivity
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.history_tab));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.overview_tab));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.statistics_tab));
+        if (tabLayout != null) {
 
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.history_tab));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.overview_tab));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.statistics_tab));
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 3);
+            final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+            TabAdapter tabAdapter = new TabAdapter(fragmentManager, 3);
 
-        viewPager.setAdapter(tabAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            if (viewPager != null) {
 
-        viewPager.setCurrentItem(1);
+                viewPager.setAdapter(tabAdapter);
+                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                viewPager.setCurrentItem(1);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        viewPager.setCurrentItem(tab.getPosition());
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment addingMeasureDialogFragment = new AddingMeasureDialogFragment();
-                addingMeasureDialogFragment.show(fragmentManager, "AddingMeasureDialogFragment");
-            }
-        });
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment addingMeasureDialogFragment = new AddingMeasureDialogFragment();
+                    addingMeasureDialogFragment.show(fragmentManager, "AddingMeasureDialogFragment");
+                }
+            });
+        }
     }
 
     @Override

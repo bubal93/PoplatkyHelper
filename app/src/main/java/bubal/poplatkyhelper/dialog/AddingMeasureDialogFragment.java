@@ -63,30 +63,32 @@ public class AddingMeasureDialogFragment extends DialogFragment {
 
         builder.setView(container);
 
-        etDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (etDate != null) {
+            etDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                //To prevent overlaying of floating labels component
-                if (etDate.length() == 0) {
-                    etDate.setText("");
+                    //To prevent overlaying of floating labels component
+                    if (etDate.length() == 0) {
+                        etDate.setText("");
+                    }
+                    DialogFragment datePickerFragment = new DatePickerFragment() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Calendar dateCalendar = Calendar.getInstance();
+                            dateCalendar.set(year, monthOfYear, dayOfMonth);
+                            etDate.setText(Utils.getDate(dateCalendar.getTimeInMillis()));
+                        }
+
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            etDate.setText(null);
+                        }
+                    };
+                    datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
                 }
-                DialogFragment datePickerFragment = new DatePickerFragment() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        Calendar dateCalendar = Calendar.getInstance();
-                        dateCalendar.set(year, monthOfYear, dayOfMonth);
-                        etDate.setText(Utils.getDate(dateCalendar.getTimeInMillis()));
-                    }
-
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        etDate.setText(null);
-                    }
-                };
-                datePickerFragment.show(getFragmentManager(), "DatePickerFragment");
-            }
-        });
+            });
+        }
 
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
             @Override
@@ -109,53 +111,56 @@ public class AddingMeasureDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 final Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (etValue.length() == 0 || etDate.length() == 0) {
-                    positiveButton.setEnabled(false);
-                    tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
-                    tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
+                if (etValue != null && etDate != null) {
+                    if (etValue.length() == 0 || etDate.length() == 0) {
+                        positiveButton.setEnabled(false);
+                        tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
+                        tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
+                    }
+
+
+                    etValue.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() == 0) {
+                                positiveButton.setEnabled(false);
+                                tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
+                            } else {
+                                positiveButton.setEnabled(true);
+                                tilValue.setErrorEnabled(false);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                        }
+                    });
+
+                    etDate.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() == 0) {
+                                positiveButton.setEnabled(false);
+                                tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
+                            } else {
+                                positiveButton.setEnabled(true);
+                                tilDate.setErrorEnabled(false);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                        }
+                    });
                 }
-
-                etValue.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (s.length() == 0) {
-                            positiveButton.setEnabled(false);
-                            tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
-                        } else {
-                            positiveButton.setEnabled(true);
-                            tilValue.setErrorEnabled(false);
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
-
-                etDate.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (s.length() == 0) {
-                            positiveButton.setEnabled(false);
-                            tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
-                        } else {
-                            positiveButton.setEnabled(true);
-                            tilDate.setErrorEnabled(false);
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
             }
         });
 
