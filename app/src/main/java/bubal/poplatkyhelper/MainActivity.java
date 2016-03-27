@@ -18,11 +18,17 @@ import android.widget.Toast;
 
 import bubal.poplatkyhelper.adapter.TabAdapter;
 import bubal.poplatkyhelper.dialog.AddingMeasureDialogFragment;
+import bubal.poplatkyhelper.fragment.HistoryFragment;
+import bubal.poplatkyhelper.model.ModelMeasure;
 
 public class MainActivity extends AppCompatActivity
         implements AddingMeasureDialogFragment.AddingMeasureListener {
 
     FragmentManager fragmentManager;
+
+    TabAdapter tabAdapter;
+
+    HistoryFragment historyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             tabLayout.addTab(tabLayout.newTab().setText(R.string.statistics_tab));
 
             final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            TabAdapter tabAdapter = new TabAdapter(fragmentManager, 3);
+            tabAdapter = new TabAdapter(fragmentManager, 3);
 
             if (viewPager != null) {
 
@@ -109,6 +115,8 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        historyFragment = (HistoryFragment) tabAdapter.getItem(TabAdapter.HISTORY_FRAGMENT_MEASURE_POSITION);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +130,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMeasureAdded() {
+    public void onMeasureAdded(ModelMeasure newMeasure) {
         Toast.makeText(this, "Measure added", Toast.LENGTH_SHORT).show();
+
+        historyFragment.addMeasure(newMeasure);
     }
 
     @Override

@@ -19,13 +19,14 @@ import java.util.Calendar;
 
 import bubal.poplatkyhelper.R;
 import bubal.poplatkyhelper.Utils;
+import bubal.poplatkyhelper.model.ModelMeasure;
 
 public class AddingMeasureDialogFragment extends DialogFragment {
 
     private AddingMeasureListener addingMeasureListener;
 
     public interface AddingMeasureListener {
-        void onMeasureAdded();
+        void onMeasureAdded(ModelMeasure newMeasure);
 
         void onMeasureAddingCancel();
     }
@@ -63,6 +64,10 @@ public class AddingMeasureDialogFragment extends DialogFragment {
 
         builder.setView(container);
 
+        final ModelMeasure measure = new ModelMeasure();
+        final Calendar calendar = Calendar.getInstance();
+
+
         if (etDate != null) {
             etDate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,9 +80,10 @@ public class AddingMeasureDialogFragment extends DialogFragment {
                     DialogFragment datePickerFragment = new DatePickerFragment() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            Calendar dateCalendar = Calendar.getInstance();
-                            dateCalendar.set(year, monthOfYear, dayOfMonth);
-                            etDate.setText(Utils.getDate(dateCalendar.getTimeInMillis()));
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.MONTH, monthOfYear);
+                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            etDate.setText(Utils.getDate(calendar.getTimeInMillis()));
                         }
 
                         @Override
@@ -93,7 +99,14 @@ public class AddingMeasureDialogFragment extends DialogFragment {
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addingMeasureListener.onMeasureAdded();
+
+                if (etValue != null && etDate != null) {
+
+                    measure.setValue(Float.parseFloat(etValue.getText().toString()));
+                    //Setting the current date if no date is entered
+                    measure.setDate(calendar.getTimeInMillis());
+                }
+                addingMeasureListener.onMeasureAdded(measure);
                 dialog.dismiss();
             }
         });
@@ -111,11 +124,11 @@ public class AddingMeasureDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialog) {
                 final Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                if (etValue != null && etDate != null) {
-                    if (etValue.length() == 0 || etDate.length() == 0) {
+                if (etValue != null) {
+
+                    if (etValue.length() == 0) {
                         positiveButton.setEnabled(false);
                         tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
-                        tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
                     }
 
 
@@ -132,27 +145,6 @@ public class AddingMeasureDialogFragment extends DialogFragment {
                             } else {
                                 positiveButton.setEnabled(true);
                                 tilValue.setErrorEnabled(false);
-                            }
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-                    });
-
-                    etDate.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            if (s.length() == 0) {
-                                positiveButton.setEnabled(false);
-                                tilDate.setError(getResources().getString(R.string.dialog_error_empty_date));
-                            } else {
-                                positiveButton.setEnabled(true);
-                                tilDate.setErrorEnabled(false);
                             }
                         }
 

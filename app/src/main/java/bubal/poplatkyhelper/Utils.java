@@ -8,4 +8,5 @@ public class Utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
         return dateFormat.format(date);
     }
+
 }

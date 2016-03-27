@@ -27,7 +27,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_error_empty_value">Please, enter the value</string>
-    <string name="dialog_error_empty_date">Please, enter the date</string>
+
 
 
     <string name="measure_value">Value</string>

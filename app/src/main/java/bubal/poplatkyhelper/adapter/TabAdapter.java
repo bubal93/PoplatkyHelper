@@ -12,9 +12,14 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     private int numberOfTabs;
 
+    public static final int HISTORY_FRAGMENT_MEASURE_POSITION = 0;
+
+    private HistoryFragment historyFragment;
+
     public TabAdapter(FragmentManager fm, int numberOfTabs) {
         super(fm);
         this.numberOfTabs = numberOfTabs;
+        historyFragment = new HistoryFragment();
     }
 
     @Override
@@ -22,7 +27,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new HistoryFragment();
+                return historyFragment;
             case 1:
                 return new OverviewFragment();
             case 2:

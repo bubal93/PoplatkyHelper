@@ -16,7 +16,6 @@
         android:layout_toLeftOf="@+id/tvMeasureDate"
         android:layout_toRightOf="@+id/tvMeasureDate"
         android:layout_toStartOf="@+id/tvMeasureDate"
-        android:text="Value"
         android:textColor="@color/primary_text"
         android:textSize="16sp" />
 
@@ -27,7 +26,6 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:gravity="right"
-        android:text="Date"
         android:textColor="@color/secondary_text"
         android:textSize="14sp" />
 
