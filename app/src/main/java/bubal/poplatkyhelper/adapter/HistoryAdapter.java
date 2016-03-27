@@ -1,5 +1,6 @@
 package bubal.poplatkyhelper.adapter;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,28 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyItemInserted(location);
     }
 
+    public void removeItem(int location) {
+        if (location >= 0 && location <= getItemCount() - 1) {
+            items.remove(location);
+            notifyItemRemoved(location);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItem(position).isMeasure()) {
+            return TYPE_MEASURE;
+        } else {
+            return TYPE_SEPARATOR;
+        }
+    }
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -61,34 +84,28 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ModelMeasure measure = (ModelMeasure) item;
             MeasureViewHolder measureViewHolder = (MeasureViewHolder) holder;
 
+            View itemView=measureViewHolder.itemView;
+            Resources resources=itemView.getResources();
 
-            String valueFloat=Float.toString(measure.getValue());
+            String valueFloat = Float.toString(measure.getValue());
             measureViewHolder.value.setText(valueFloat);
 
             measureViewHolder.date.setText(Utils.getDate(measure.getDate()));
+
+
+            itemView.setVisibility(View.VISIBLE);
+
+            measureViewHolder.value.setTextColor(resources.getColor(R.color.primary_text));
+            measureViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text));
         }
 
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (getItem(position).isMeasure()) {
-            return TYPE_MEASURE;
-        } else {
-            return TYPE_SEPARATOR;
-        }
-    }
+    protected class MeasureViewHolder extends RecyclerView.ViewHolder {
 
-
-    private class MeasureViewHolder extends RecyclerView.ViewHolder {
-
-        TextView value;
-        TextView date;
+        protected TextView value;
+        protected TextView date;
 
         public MeasureViewHolder(View itemView, TextView value, TextView date) {
             super(itemView);

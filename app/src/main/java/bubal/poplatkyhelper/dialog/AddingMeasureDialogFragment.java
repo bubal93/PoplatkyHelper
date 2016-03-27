@@ -11,9 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 
@@ -59,6 +62,8 @@ public class AddingMeasureDialogFragment extends DialogFragment {
         final TextInputLayout tilDate = (TextInputLayout) container.findViewById(R.id.tilDialogMeasureDate);
         final EditText etDate = tilDate.getEditText();
 
+        Spinner spMeasureType = (Spinner) container.findViewById(R.id.spDialogMeasureType);
+
         tilValue.setHint(getResources().getString(R.string.measure_value));
         tilDate.setHint(getResources().getString(R.string.measure_date));
 
@@ -66,6 +71,23 @@ public class AddingMeasureDialogFragment extends DialogFragment {
 
         final ModelMeasure measure = new ModelMeasure();
         final Calendar calendar = Calendar.getInstance();
+
+        ArrayAdapter<String> measureTypeAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, ModelMeasure.MEASURE_TYPES);
+
+        spMeasureType.setAdapter(measureTypeAdapter);
+
+        spMeasureType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                measure.setMeasureType(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         if (etDate != null) {

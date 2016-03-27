@@ -8,4 +8,6 @@
 
     <color name="primary_text">#de000000</color>
     <color name="secondary_text">#8a000000</color>
+
+    <color name="grey_50">#FAFAFA</color>
 </resources>
