@@ -25,6 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
             + MEASURE_VALUE_COLUMN + " FLOAT NOT NULL, " + MEASURE_DATE_COLUMN + " LONG, "
             + MEASURE_TYPE_COLUMN + " INTEGER, " + MEASURE_TIME_STAMP_COLUMN + " LONG);";
 
+    public static final String SELECTION_TIME_STAMP = MEASURE_TIME_STAMP_COLUMN + " = ?";
+
+
     private DBQueryManager queryManager;
     private DBUpdateManager updateManager;
 
@@ -62,5 +65,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBUpdateManager update() {
         return updateManager;
+    }
+
+    public void removeMeasure(long timeStamp) {
+        getWritableDatabase().delete(MEASURES_TABLE, SELECTION_TIME_STAMP, new String[]{Long.toString(timeStamp)});
     }
 }

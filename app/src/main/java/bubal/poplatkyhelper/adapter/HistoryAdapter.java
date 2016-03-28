@@ -1,52 +1,28 @@
 package bubal.poplatkyhelper.adapter;
 
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import bubal.poplatkyhelper.R;
 import bubal.poplatkyhelper.Utils;
+import bubal.poplatkyhelper.fragment.HistoryFragment;
 import bubal.poplatkyhelper.model.Item;
 import bubal.poplatkyhelper.model.ModelMeasure;
 
-public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HistoryAdapter extends MeasureAdapter {
 
     private static final int TYPE_MEASURE = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    List<Item> items = new ArrayList<>();
+    HistoryFragment historyFragment;
 
-
-    public Item getItem(int position) {
-        return items.get(position);
-    }
-
-    public void addItem(Item item) {
-        items.add(item);
-        notifyItemInserted(getItemCount() - 1);
-    }
-
-    public void addItem(int location, Item item) {
-        items.add(location, item);
-        notifyItemInserted(location);
-    }
-
-    public void removeItem(int location) {
-        if (location >= 0 && location <= getItemCount() - 1) {
-            items.remove(location);
-            notifyItemRemoved(location);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
+    public HistoryAdapter(HistoryFragment measureFragment) {
+        super(measureFragment);
     }
 
     @Override
@@ -57,7 +33,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return TYPE_SEPARATOR;
         }
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -82,10 +57,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (item.isMeasure()) {
             holder.itemView.setEnabled(true);
             ModelMeasure measure = (ModelMeasure) item;
-            MeasureViewHolder measureViewHolder = (MeasureViewHolder) holder;
+            final MeasureViewHolder measureViewHolder = (MeasureViewHolder) holder;
 
-            View itemView=measureViewHolder.itemView;
-            Resources resources=itemView.getResources();
+            View itemView = measureViewHolder.itemView;
+            Resources resources = itemView.getResources();
 
             String valueFloat = Float.toString(measure.getValue());
             measureViewHolder.value.setText(valueFloat);
@@ -97,20 +72,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             measureViewHolder.value.setTextColor(resources.getColor(R.color.primary_text));
             measureViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text));
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getMeasureFragment().removeMeasureDialog(measureViewHolder.getLayoutPosition());
+                        }
+                    }, 300);
+
+                    return true;
+                }
+            });
         }
 
     }
 
-
-    protected class MeasureViewHolder extends RecyclerView.ViewHolder {
-
-        protected TextView value;
-        protected TextView date;
-
-        public MeasureViewHolder(View itemView, TextView value, TextView date) {
-            super(itemView);
-            this.value = value;
-            this.date = date;
-        }
+    public HistoryFragment getHistoryFragment(){
+        return this.historyFragment;
     }
 }

@@ -26,12 +26,15 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_error_empty_value">Please, enter the value</string>
+    <string name="dialog_error_incorrect_value">Incorrect value</string>
 
-
+    <string name="dialog_removing_message">Are you sure you want o delete this measure?</string>
+    <string name="removed">Measure removed</string>
 
     <string name="measure_value">Value</string>
     <string name="measure_date">Date</string>
-    <string name="dialog_error_incorrect_value">Incorrect value</string>
+    <string name="dialog_removing_yes">Yes</string>
+    <string name="dialog_removing_cancel">Cancel</string>
 
 
 </resources>

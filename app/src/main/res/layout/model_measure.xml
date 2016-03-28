@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:orientation="vertical">
+    android:layout_height="56dp">
 
-    <TextView
-        android:id="@+id/tvMeasureValue"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_toLeftOf="@+id/tvMeasureDate"
-        android:layout_toRightOf="@+id/tvMeasureDate"
-        android:layout_toStartOf="@+id/tvMeasureDate"
-        android:textColor="@color/primary_text"
-        android:textSize="16sp" />
+        android:layout_height="56dp"
+        android:background="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/tvMeasureDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:gravity="right"
-        android:textColor="@color/secondary_text"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tvMeasureValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toLeftOf="@+id/tvMeasureDate"
+            android:layout_toRightOf="@+id/tvMeasureDate"
+            android:layout_toStartOf="@+id/tvMeasureDate"
+            android:textColor="@color/primary_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvMeasureDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:gravity="right"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

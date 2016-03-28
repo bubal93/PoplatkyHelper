@@ -20,6 +20,7 @@ import bubal.poplatkyhelper.adapter.TabAdapter;
 import bubal.poplatkyhelper.database.DBHelper;
 import bubal.poplatkyhelper.dialog.AddingMeasureDialogFragment;
 import bubal.poplatkyhelper.fragment.HistoryFragment;
+import bubal.poplatkyhelper.fragment.MeasureFragment;
 import bubal.poplatkyhelper.model.ModelMeasure;
 
 public class MainActivity extends AppCompatActivity
@@ -29,9 +30,10 @@ public class MainActivity extends AppCompatActivity
 
     TabAdapter tabAdapter;
 
-    HistoryFragment historyFragment;
+    MeasureFragment historyFragment;
 
     public DBHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
