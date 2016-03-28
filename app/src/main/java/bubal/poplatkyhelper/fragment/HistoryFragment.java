@@ -1,16 +1,21 @@
 package bubal.poplatkyhelper.fragment;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import bubal.poplatkyhelper.MainActivity;
 import bubal.poplatkyhelper.R;
 import bubal.poplatkyhelper.adapter.HistoryAdapter;
+import bubal.poplatkyhelper.database.DBHelper;
 import bubal.poplatkyhelper.model.ModelMeasure;
 
 /**
@@ -23,11 +28,33 @@ public class HistoryFragment extends Fragment {
 
     private HistoryAdapter adapter;
 
+    public MainActivity activity;
+
 
     public HistoryFragment() {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getActivity() != null) {
+            activity = (MainActivity) getActivity();
+        }
+
+        addMeasureFromDB();
+    }
+
+    public void addMeasureFromDB() {
+        List<ModelMeasure> measures = new ArrayList<>();
+        measures.addAll(activity.dbHelper.query().getMeasures(null, null, DBHelper.MEASURE_TYPE_COLUMN));
+
+        for (int i = 0; i < measures.size(); i++) {
+            addMeasure(measures.get(i), false);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +74,7 @@ public class HistoryFragment extends Fragment {
         return rootView;
     }
 
-    public void addMeasure(ModelMeasure newMeasure) {
+    public void addMeasure(ModelMeasure newMeasure, boolean saveToDB) {
         int position = -1;
 
         for (int i = 0; i < adapter.getItemCount(); i++) {
@@ -65,6 +92,10 @@ public class HistoryFragment extends Fragment {
             adapter.addItem(position, newMeasure);
         } else {
             adapter.addItem(newMeasure);
+        }
+
+        if (saveToDB) {
+            activity.dbHelper.saveMeasure(newMeasure);
         }
     }
 }

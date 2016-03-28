@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import bubal.poplatkyhelper.adapter.TabAdapter;
+import bubal.poplatkyhelper.database.DBHelper;
 import bubal.poplatkyhelper.dialog.AddingMeasureDialogFragment;
 import bubal.poplatkyhelper.fragment.HistoryFragment;
 import bubal.poplatkyhelper.model.ModelMeasure;
@@ -30,10 +31,14 @@ public class MainActivity extends AppCompatActivity
 
     HistoryFragment historyFragment;
 
+    public DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbHelper = new DBHelper(getApplicationContext());
 
         fragmentManager = getFragmentManager();
 
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity
     public void onMeasureAdded(ModelMeasure newMeasure) {
         Toast.makeText(this, "Measure added", Toast.LENGTH_SHORT).show();
 
-        historyFragment.addMeasure(newMeasure);
+        historyFragment.addMeasure(newMeasure,true);
     }
 
     @Override

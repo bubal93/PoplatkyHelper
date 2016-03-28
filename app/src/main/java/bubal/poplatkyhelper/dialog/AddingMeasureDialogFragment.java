@@ -151,8 +151,10 @@ public class AddingMeasureDialogFragment extends DialogFragment {
                     if (etValue.length() == 0) {
                         positiveButton.setEnabled(false);
                         tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
+                    } else if (Float.parseFloat(etValue.toString()) == 0 || Float.parseFloat(etValue.toString()) < 0) {
+                        positiveButton.setEnabled(false);
+                        tilValue.setError(getResources().getString(R.string.dialog_error_incorrect_value));
                     }
-
 
                     etValue.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -164,6 +166,9 @@ public class AddingMeasureDialogFragment extends DialogFragment {
                             if (s.length() == 0) {
                                 positiveButton.setEnabled(false);
                                 tilValue.setError(getResources().getString(R.string.dialog_error_empty_value));
+                            } else if (Float.parseFloat(s.toString()) == 0 || Float.parseFloat(s.toString()) < 0) {
+                                positiveButton.setEnabled(false);
+                                tilValue.setError(getResources().getString(R.string.dialog_error_incorrect_value));
                             } else {
                                 positiveButton.setEnabled(true);
                                 tilValue.setErrorEnabled(false);

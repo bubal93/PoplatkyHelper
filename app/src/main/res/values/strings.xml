@@ -31,8 +31,7 @@
 
     <string name="measure_value">Value</string>
     <string name="measure_date">Date</string>
-
-
+    <string name="dialog_error_incorrect_value">Incorrect value</string>
 
 
 </resources>

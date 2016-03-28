@@ -1,5 +1,7 @@
 package bubal.poplatkyhelper.model;
 
+import java.util.Date;
+
 public class ModelMeasure implements Item {
 
     public static final int MEASURE_TYPE_ELECTRICITY = 0;
@@ -11,14 +13,17 @@ public class ModelMeasure implements Item {
     private float value;
     private long date;
     private int measureType;
+    private long timeStamp;
 
     public ModelMeasure() {
+        this.timeStamp = new Date().getTime();
     }
 
-    public ModelMeasure(float value, long date, int measureType) {
+    public ModelMeasure(float value, long date, int measureType, long timeStamp) {
         this.value = value;
         this.date = date;
         this.measureType = measureType;
+        this.timeStamp = timeStamp;
     }
 
     @Override
@@ -48,5 +53,13 @@ public class ModelMeasure implements Item {
 
     public void setMeasureType(int measureType) {
         this.measureType = measureType;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
