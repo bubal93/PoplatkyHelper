@@ -98,8 +98,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
         final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(measure.getDate());
 
-        ArrayAdapter<String> measureTypeAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, ModelMeasure.MEASURE_TYPES);
+        ArrayAdapter<String> measureTypeAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.measure_types));
 
         spMeasureType.setAdapter(measureTypeAdapter);
 

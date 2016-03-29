@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Poplatky Helper</string>
 
+    <string-array name="measure_types">
+        <item>Electricity</item>
+        <item>Water</item>
+        <item>Natural Gas</item>
+    </string-array>
+
     <string name="pref_key_tariffElectricity">Electricity tariff</string>
     <string name="pref_key_tariffWater">Water tariff</string>
     <string name="pref_key_tariffNaturalGas">Natural gas tariff</string>

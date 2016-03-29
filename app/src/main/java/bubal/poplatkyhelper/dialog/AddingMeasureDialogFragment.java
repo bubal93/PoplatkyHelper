@@ -72,8 +72,9 @@ public class AddingMeasureDialogFragment extends DialogFragment {
         final ModelMeasure measure = new ModelMeasure();
         final Calendar calendar = Calendar.getInstance();
 
-        ArrayAdapter<String> measureTypeAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, ModelMeasure.MEASURE_TYPES);
+        ArrayAdapter<String> measureTypeAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.measure_types));
 
         spMeasureType.setAdapter(measureTypeAdapter);
 
