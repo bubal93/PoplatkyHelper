@@ -68,7 +68,7 @@ public class HistoryAdapter extends MeasureAdapter {
 
         if (item.isMeasure()) {
             holder.itemView.setEnabled(true);
-            ModelMeasure measure = (ModelMeasure) item;
+            final ModelMeasure measure = (ModelMeasure) item;
             final MeasureViewHolder measureViewHolder = (MeasureViewHolder) holder;
 
             View itemView = measureViewHolder.itemView;
@@ -83,6 +83,15 @@ public class HistoryAdapter extends MeasureAdapter {
 
             measureViewHolder.value.setTextColor(resources.getColor(R.color.primary_text));
             measureViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text));
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getMeasureFragment().showMeasureEditDialog(measure);
+                }
+            });
+
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

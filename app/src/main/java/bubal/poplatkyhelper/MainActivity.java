@@ -19,12 +19,14 @@ import android.widget.Toast;
 import bubal.poplatkyhelper.adapter.TabAdapter;
 import bubal.poplatkyhelper.database.DBHelper;
 import bubal.poplatkyhelper.dialog.AddingMeasureDialogFragment;
+import bubal.poplatkyhelper.dialog.EditMeasureDialogFragment;
 import bubal.poplatkyhelper.fragment.HistoryFragment;
 import bubal.poplatkyhelper.fragment.MeasureFragment;
 import bubal.poplatkyhelper.model.ModelMeasure;
 
 public class MainActivity extends AppCompatActivity
-        implements AddingMeasureDialogFragment.AddingMeasureListener {
+        implements AddingMeasureDialogFragment.AddingMeasureListener,
+        EditMeasureDialogFragment.EditingMeasureListener {
 
     FragmentManager fragmentManager;
 
@@ -138,11 +140,17 @@ public class MainActivity extends AppCompatActivity
     public void onMeasureAdded(ModelMeasure newMeasure) {
         Toast.makeText(this, "Measure added", Toast.LENGTH_SHORT).show();
 
-        historyFragment.addMeasure(newMeasure,true);
+        historyFragment.addMeasure(newMeasure, true);
     }
 
     @Override
     public void onMeasureAddingCancel() {
         Toast.makeText(this, "Measure adding canceled", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMeasureEdited(ModelMeasure updateMeasure) {
+        historyFragment.updateMeasure(updateMeasure);
+        dbHelper.update().measure(updateMeasure);
     }
 }

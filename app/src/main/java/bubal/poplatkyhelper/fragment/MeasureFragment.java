@@ -1,6 +1,7 @@
 package bubal.poplatkyhelper.fragment;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import bubal.poplatkyhelper.MainActivity;
 import bubal.poplatkyhelper.R;
 import bubal.poplatkyhelper.adapter.MeasureAdapter;
+import bubal.poplatkyhelper.dialog.EditMeasureDialogFragment;
 import bubal.poplatkyhelper.model.Item;
 import bubal.poplatkyhelper.model.ModelMeasure;
 import bubal.poplatkyhelper.model.ModelSeparator;
@@ -34,6 +36,10 @@ public abstract class MeasureFragment extends Fragment {
         }
 
         addMeasureFromDB();
+    }
+
+    public void updateMeasure(ModelMeasure measure) {
+        adapter.updateMeasure(measure);
     }
 
     public void addMeasure(ModelMeasure newMeasure, boolean saveToDB) {
@@ -172,6 +178,11 @@ public abstract class MeasureFragment extends Fragment {
             });
         }
         dialogBuilder.show();
+    }
+
+    public void showMeasureEditDialog(ModelMeasure measure){
+        DialogFragment editingMeasureDialog= EditMeasureDialogFragment.newInstanse(measure);
+        editingMeasureDialog.show(getActivity().getFragmentManager(), "EditMeasureDialogFragment");
     }
 
     public abstract void addMeasureFromDB();

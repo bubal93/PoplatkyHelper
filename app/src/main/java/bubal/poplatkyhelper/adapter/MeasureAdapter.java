@@ -9,6 +9,7 @@ import java.util.List;
 
 import bubal.poplatkyhelper.fragment.MeasureFragment;
 import bubal.poplatkyhelper.model.Item;
+import bubal.poplatkyhelper.model.ModelMeasure;
 import bubal.poplatkyhelper.model.ModelSeparator;
 
 public abstract class MeasureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -39,6 +40,18 @@ public abstract class MeasureAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void addItem(int location, Item item) {
         items.add(location, item);
         notifyItemInserted(location);
+    }
+
+    public void updateMeasure(ModelMeasure newMeasure) {
+        for (int i = 0; i < getItemCount(); i++) {
+            if (getItem(i).isMeasure()) {
+                ModelMeasure measure = (ModelMeasure) getItem(i);
+                if (newMeasure.getTimeStamp() == measure.getTimeStamp()) {
+                    removeItem(i);
+                    getMeasureFragment().addMeasure(newMeasure, false);
+                }
+            }
+        }
     }
 
     public void removeItem(int location) {

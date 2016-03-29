@@ -22,6 +22,8 @@
     <string name="statistics_tab">Statistics</string>
     <string name="history_tab">History</string>
 
+    <string name="dialog_editing_title">Editing task</string>
+
     <string name="dialog_title">Adding measure</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
