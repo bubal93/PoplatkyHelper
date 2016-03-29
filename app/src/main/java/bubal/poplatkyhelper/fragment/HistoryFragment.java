@@ -54,4 +54,12 @@ public class HistoryFragment extends MeasureFragment {
             addMeasure(measures.get(i), false);
         }
     }
+
+    @Override
+    public void checkAdapter() {
+        if (adapter == null) {
+            adapter = new HistoryAdapter(this);
+            addMeasureFromDB();
+        }
+    }
 }

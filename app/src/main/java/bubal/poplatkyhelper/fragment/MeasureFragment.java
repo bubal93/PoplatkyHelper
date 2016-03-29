@@ -186,4 +186,6 @@ public abstract class MeasureFragment extends Fragment {
     }
 
     public abstract void addMeasureFromDB();
+
+    public abstract void checkAdapter();
 }
