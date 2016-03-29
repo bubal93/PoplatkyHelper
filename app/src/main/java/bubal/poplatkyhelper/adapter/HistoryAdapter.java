@@ -103,6 +103,7 @@ public class HistoryAdapter extends MeasureAdapter {
             SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) holder;
 
             separatorViewHolder.type.setText(resources.getString(separator.getType()));
+            separatorViewHolder.type.setBackgroundColor(resources.getColor(separator.getTypeColor()));
         }
     }
 

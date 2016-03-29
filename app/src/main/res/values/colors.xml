@@ -11,4 +11,8 @@
 
     <color name="gray_50">#FAFAFA</color>
     <color name="gray_200">#EEEEEE</color>
+    
+    <color name="type_electricity">#FFF59D</color>
+    <color name="type_water">#90CAF9</color>
+    <color name="type_natural_gas">#80DEEA</color>
 </resources>
