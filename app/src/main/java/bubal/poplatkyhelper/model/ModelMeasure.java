@@ -8,12 +8,25 @@ public class ModelMeasure implements Item {
     public static final int MEASURE__TYPE_WATER = 1;
     public static final int MEASURE__TYPE_NATURAL_GAS = 2;
 
+    public static final int STATUS_ELECTRICITY = 0;
+    public static final int STATUS_WATER = 1;
+    public static final int STATUS_NATURAL_GAS = 2;
+
     public static final String[] MEASURE_TYPES = {"Electricity", "Water", "Natural gas"};
 
     private float value;
     private long date;
     private int measureType;
     private long timeStamp;
+    private int typeStatus;
+
+    public int getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(int typeStatus) {
+        this.typeStatus = typeStatus;
+    }
 
     public ModelMeasure() {
         this.timeStamp = new Date().getTime();

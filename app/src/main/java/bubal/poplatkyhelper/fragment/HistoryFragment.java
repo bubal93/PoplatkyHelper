@@ -45,6 +45,8 @@ public class HistoryFragment extends MeasureFragment {
     }
 
     public void addMeasureFromDB() {
+        adapter.removeAllItems();
+
         List<ModelMeasure> measures = new ArrayList<>();
         measures.addAll(activity.dbHelper.query().getMeasures(null, null, DBHelper.MEASURE_TYPE_COLUMN));
 

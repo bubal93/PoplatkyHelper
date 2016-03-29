@@ -36,5 +36,9 @@
     <string name="dialog_removing_yes">Yes</string>
     <string name="dialog_removing_cancel">Cancel</string>
 
+    <string name="separator_electricity">Electricity</string>
+    <string name="separator_water">Water</string>
+    <string name="separator_naturalGas">Natural gas</string>
+
 
 </resources>

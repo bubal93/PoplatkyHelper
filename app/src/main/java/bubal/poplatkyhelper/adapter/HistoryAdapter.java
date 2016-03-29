@@ -13,6 +13,7 @@ import bubal.poplatkyhelper.Utils;
 import bubal.poplatkyhelper.fragment.HistoryFragment;
 import bubal.poplatkyhelper.model.Item;
 import bubal.poplatkyhelper.model.ModelMeasure;
+import bubal.poplatkyhelper.model.ModelSeparator;
 
 public class HistoryAdapter extends MeasureAdapter {
 
@@ -45,6 +46,15 @@ public class HistoryAdapter extends MeasureAdapter {
                 TextView date = (TextView) view.findViewById(R.id.tvMeasureDate);
 
                 return new MeasureViewHolder(view, value, date);
+
+            case TYPE_SEPARATOR:
+                View separator = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.model_separator, parent, false);
+
+                TextView type = (TextView) separator.findViewById(R.id.tvSeparatorName);
+
+                return new SeparatorViewHolder(separator, type);
+
             default:
                 return null;
         }
@@ -53,6 +63,8 @@ public class HistoryAdapter extends MeasureAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Item item = items.get(position);
+        final Resources resources = holder.itemView.getResources();
+
 
         if (item.isMeasure()) {
             holder.itemView.setEnabled(true);
@@ -60,7 +72,6 @@ public class HistoryAdapter extends MeasureAdapter {
             final MeasureViewHolder measureViewHolder = (MeasureViewHolder) holder;
 
             View itemView = measureViewHolder.itemView;
-            Resources resources = itemView.getResources();
 
             String valueFloat = Float.toString(measure.getValue());
             measureViewHolder.value.setText(valueFloat);
@@ -87,11 +98,15 @@ public class HistoryAdapter extends MeasureAdapter {
                     return true;
                 }
             });
-        }
+        } else {
+            ModelSeparator separator = (ModelSeparator) item;
+            SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) holder;
 
+            separatorViewHolder.type.setText(resources.getString(separator.getType()));
+        }
     }
 
-    public HistoryFragment getHistoryFragment(){
+    public HistoryFragment getHistoryFragment() {
         return this.historyFragment;
     }
 }

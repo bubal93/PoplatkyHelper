@@ -13,6 +13,7 @@ import bubal.poplatkyhelper.R;
 import bubal.poplatkyhelper.adapter.MeasureAdapter;
 import bubal.poplatkyhelper.model.Item;
 import bubal.poplatkyhelper.model.ModelMeasure;
+import bubal.poplatkyhelper.model.ModelSeparator;
 
 public abstract class MeasureFragment extends Fragment {
 
@@ -37,6 +38,7 @@ public abstract class MeasureFragment extends Fragment {
 
     public void addMeasure(ModelMeasure newMeasure, boolean saveToDB) {
         int position = -1;
+        ModelSeparator separator = null;
 
         for (int i = 0; i < adapter.getItemCount(); i++) {
 
@@ -49,13 +51,59 @@ public abstract class MeasureFragment extends Fragment {
                 }
             }
         }
+
+        if (newMeasure.getMeasureType() == ModelMeasure.MEASURE_TYPE_ELECTRICITY) {
+
+            newMeasure.setTypeStatus(ModelSeparator.TYPE_ELECTRICITY);
+            if (!adapter.containsSeparatorElectricity) {
+                adapter.containsSeparatorElectricity = true;
+                separator = new ModelSeparator(ModelSeparator.TYPE_ELECTRICITY);
+            }
+        } else if (newMeasure.getMeasureType() == ModelMeasure.MEASURE__TYPE_WATER) {
+
+            newMeasure.setTypeStatus(ModelSeparator.TYPE_WATER);
+            if (!adapter.containsSeparatorWater) {
+                adapter.containsSeparatorWater = true;
+                separator = new ModelSeparator(ModelSeparator.TYPE_WATER);
+            }
+        } else if (newMeasure.getMeasureType() == ModelMeasure.MEASURE__TYPE_NATURAL_GAS) {
+
+            newMeasure.setTypeStatus(ModelSeparator.TYPE_NATURAL_GAS);
+            if (!adapter.containsSeparatorNaturalGas) {
+                adapter.containsSeparatorNaturalGas = true;
+                separator = new ModelSeparator(ModelSeparator.TYPE_NATURAL_GAS);
+            }
+        }
+
+
         if (position != -1) {
+
+            if (!adapter.getItem(position - 1).isMeasure()) {
+                if (position - 2 >= 0 && adapter.getItem(position - 2).isMeasure()) {
+                    ModelMeasure measure = (ModelMeasure) adapter.getItem(position - 2);
+                    if (measure.getTypeStatus() == newMeasure.getTypeStatus()) {
+                        position -= 1;
+                    }
+                } else if (position - 2 < 0 && newMeasure.getDate() == 0) {
+                    position -= 1;
+                }
+            }
+
+            if (separator != null) {
+                adapter.addItem(position - 1, separator);
+            }
+
             adapter.addItem(position, newMeasure);
+
         } else {
+            if (separator != null) {
+                adapter.addItem(separator);
+            }
+
             adapter.addItem(newMeasure);
         }
 
-        if (saveToDB){
+        if (saveToDB) {
             activity.dbHelper.saveMeasure(newMeasure);
         }
     }
