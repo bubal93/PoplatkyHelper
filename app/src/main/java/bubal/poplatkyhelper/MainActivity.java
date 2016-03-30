@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
         implements AddingMeasureDialogFragment.AddingMeasureListener,
         EditMeasureDialogFragment.EditingMeasureListener {
 
+    private static final int LAYOUT = R.layout.activity_main;
+
     FragmentManager fragmentManager;
 
     TabAdapter tabAdapter;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(LAYOUT);
 
         dbHelper = new DBHelper(getApplicationContext());
 
