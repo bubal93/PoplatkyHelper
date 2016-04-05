@@ -12,7 +12,7 @@ import bubal.poplatkyhelper.R;
 
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
+BarChart barChart;
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -20,7 +20,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .inflate(R.layout.model_graph, viewGroup, false);
 
         TextView categoryName = (TextView) view.findViewById(R.id.tvCategoryName);
-        BarChart barChart = (BarChart) view.findViewById(R.id.bcCategoryGraph);
+         barChart = (BarChart) view.findViewById(R.id.bcCategoryGraph);
 
         return null;
     }
