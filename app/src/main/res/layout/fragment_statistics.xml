@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.StatisticsFragment"
-    android:background="@color/gray_50">
+    android:background="@color/gray_50"
+    tools:context=".fragment.StatisticsFragment">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Statistics"
-        android:textSize="35sp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        android:scrollbars="vertical" />
 
 </FrameLayout>
